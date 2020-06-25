@@ -21,14 +21,14 @@ import javax.ws.rs.core.Response.Status
 import kotlin.streams.toList
 
 
-@Path("/async")
+@Path("/async/images")
 class AsyncResource : CommonResource() {
     @Inject
     @field: Default
     lateinit var s3: S3AsyncClient
 
     @POST
-    @Path("upload")
+    @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     fun uploadFile(@MultipartForm formData: FormData): Uni<Response> {
         return when {
@@ -47,7 +47,7 @@ class AsyncResource : CommonResource() {
         }
 
         @GET
-        @Path("download/{objectKey}")
+        @Path("/download/{objectKey}")
         @Produces(MediaType.APPLICATION_OCTET_STREAM)
         @Throws(Exception::class)
         fun downloadFile(@PathParam("objectKey") objectKey: String): Uni<Response?>? {
@@ -64,6 +64,7 @@ class AsyncResource : CommonResource() {
 
 
         @GET
+        @Path("")
         @Produces(MediaType.APPLICATION_JSON)
         fun listFiles(): Uni<List<FileObject>> {
             val listRequest = ListObjectsRequest.builder()

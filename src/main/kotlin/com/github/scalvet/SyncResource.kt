@@ -18,14 +18,14 @@ import javax.ws.rs.core.Response.Status
 import javax.ws.rs.core.StreamingOutput
 import kotlin.streams.toList
 
-@Path("/s3")
+@Path("/images")
 class SyncResource : CommonResource() {
     @Inject
     @field: Default
     lateinit var s3: S3Client
 
     @POST
-    @Path("upload")
+    @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     fun uploadFile(@MultipartForm formData: FormData): Response {
         return when {
@@ -45,7 +45,7 @@ class SyncResource : CommonResource() {
         }
 
         @GET
-        @Path("download/{objectKey}")
+        @Path("/download/{objectKey}")
         @Produces(MediaType.APPLICATION_OCTET_STREAM)
         fun downloadFile(@PathParam("objectKey") objectKey: String): Response {
             val baos = ByteArrayOutputStream()
@@ -58,6 +58,7 @@ class SyncResource : CommonResource() {
         }
 
         @GET
+        @Path("")
         @Produces(MediaType.APPLICATION_JSON)
         fun listFiles(): List<FileObject> {
             val listRequest = ListObjectsRequest.builder().bucket(bucketName).build()
