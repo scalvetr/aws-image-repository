@@ -12,7 +12,6 @@ import software.amazon.awssdk.services.s3.model.S3Object
 import java.io.File
 import java.util.*
 import java.util.function.Function
-import java.util.stream.Collectors
 import javax.enterprise.inject.Default
 import javax.inject.Inject
 import javax.ws.rs.*
@@ -64,7 +63,6 @@ class AsyncResource : CommonResource() {
         }
 
 
-
         @GET
         @Produces(MediaType.APPLICATION_JSON)
         fun listFiles(): Uni<List<FileObject>> {
@@ -72,22 +70,16 @@ class AsyncResource : CommonResource() {
                     .bucket(bucketName)
                     .build()
             return Uni.createFrom().completionStage { s3.listObjects(listRequest) }.onItem()
-                    .apply { result:ListObjectsResponse -> result.toFileItems() }
+                    .apply { result: ListObjectsResponse -> toFileItems(result) }
         }
     }
 
-    private fun ListObjectsResponse.toFileItems(): List<FileObject> {
-        return this.contents().stream()
+    private fun toFileItems(response: ListObjectsResponse): List<FileObject> {
+        return response.contents().stream()
                 .sorted(Comparator.comparing { obj: S3Object -> obj.lastModified() }.reversed())
-                .map { i -> i.toFileObject() }.toList()
+                .map { i -> FileObject(objectKey = i.key(), size = i.size()) }.toList()
     }
 
-    private fun S3Object.toFileObject(): FileObject {
-        val file = FileObject()
-        file.setObjectKey(this.key())
-        file.setSize(this.size())
-        return file
-    }
 }
 
 

@@ -6,16 +6,16 @@ import javax.ws.rs.FormParam
 import javax.ws.rs.core.MediaType
 
 
-class FormData {
+data class FormData (
     @FormParam("file")
     @PartType(MediaType.APPLICATION_OCTET_STREAM)
-    var data: InputStream? = null
+    val data: InputStream,
 
     @FormParam("filename")
     @PartType(MediaType.TEXT_PLAIN)
-    var fileName: String? = null
+    val fileName: String,
 
     @FormParam("mimetype")
     @PartType(MediaType.TEXT_PLAIN)
-    var mimeType: String? = null
-}
+    val mimeType: String
+)
