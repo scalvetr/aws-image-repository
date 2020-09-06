@@ -1,4 +1,4 @@
-package com.github.scalvet
+package com.scalvetr.awsimagerepository
 
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import software.amazon.awssdk.services.s3.model.GetObjectRequest

@@ -1,4 +1,4 @@
-package com.github.scalvet
+package com.scalvetr.awsimagerepository
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager
 import org.testcontainers.DockerClientFactory
 import org.testcontainers.containers.localstack.LocalStackContainer

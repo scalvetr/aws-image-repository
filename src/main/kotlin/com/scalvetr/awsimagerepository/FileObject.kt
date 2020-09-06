@@ -1,4 +1,4 @@
-package com.github.scalvet
+package com.scalvetr.awsimagerepository
 
 
 data class FileObject(

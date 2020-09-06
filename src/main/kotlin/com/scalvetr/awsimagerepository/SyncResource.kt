@@ -1,4 +1,4 @@
-package com.github.scalvet
+package com.scalvetr.awsimagerepository
 
 import org.jboss.resteasy.annotations.jaxrs.PathParam
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm

@@ -1,4 +1,4 @@
-package com.github.scalvet
+package com.scalvetr.awsimagerepository
 
 import io.smallrye.mutiny.Uni
 import org.jboss.resteasy.annotations.jaxrs.PathParam
